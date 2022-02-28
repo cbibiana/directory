@@ -15,10 +15,11 @@ const existingContact = async (req, res, next) => {
   next();
 };
 
-const fullDirectory = async (req, res, next)=>{
+const capacityDirectory = async (req, res, next)=>{
     const capacityFull = await Contact.find();
-    if(capacityFull.length == 10) return res.status(400).send({message:"Directory is full"});
+    if(capacityFull.length >= 10) 
+    return res.status(400).send({message:"Directory is full"});
     next();
 }
 
-export default { validData, existingContact, fullDirectory };
+export default { validData, existingContact, capacityDirectory };

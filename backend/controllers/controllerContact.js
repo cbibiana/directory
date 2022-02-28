@@ -40,4 +40,15 @@ const deleteContact = async (req, res) => {
     : res.status(400).send({ message: "No contact deleted" });
 };
 
-export default { addContact, listContact, searchContact, deleteContact };
+const directoryFull = async (req, res) => {
+  const capacity = await Contact.find();
+  if (capacity.length >= 10) {
+    return res.status(200).send({ message: "The directory is full" });
+  } else {
+    return res
+      .status(200)
+      .send({ message: `You can add ${10 - capacity.length} Contacts` });
+  }
+};
+
+export default { addContact, listContact, searchContact, deleteContact, directoryFull };

@@ -8,11 +8,12 @@ router.post(
   "/addContact",
   middContact.validData,
   middContact.existingContact,
-  middContact.fullDirectory,
+  middContact.capacityDirectory,
   controllerContact.addContact
 );
 router.get("/listContact", controllerContact.listContact);
 router.get("/searchContact/:name?", controllerContact.searchContact);
+router.get("/directoryFull", controllerContact.directoryFull)
 router.delete("/deleteContact/:_id", controllerContact.deleteContact);
 
 export default router;
