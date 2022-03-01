@@ -24,9 +24,12 @@ const listContact = async (req, res) => {
 
 //Función para buscar contactos
 const searchContact = async (req, res) => {
-  const contacts = await Contact.findOne({
-    name: new RegExp(req.params["name"]),
-  }, {telephone:1, _id:0});
+  const contacts = await Contact.findOne(
+    {
+      name: new RegExp(req.params["name"]),
+    },
+    { telephone: 1, _id: 0 }
+  );
   return contacts
     ? res.status(200).send({ contacts })
     : res.status(404).send({ message: "No contact found " });
@@ -40,6 +43,20 @@ const deleteContact = async (req, res) => {
     : res.status(400).send({ message: "No contact deleted" });
 };
 
+//Función para modificar contacto
+const updateContact = async (req, res) => {
+  const result = await Contact.findByIdAndUpdate(req.body._id, {
+    name: req.body.name,
+    telephone: req.body.telephone,
+    cellphone: req.body.cellphone,
+  });
+
+  return result
+    ? res.status(200).send({ message: "Successfully updated contact" })
+    : res.status(500).send({ message: "Failed to update contact" });
+};
+
+//Función para verficar si el directorio esta lleno
 const directoryFull = async (req, res) => {
   const capacity = await Contact.find();
   if (capacity.length >= 10) {
@@ -51,4 +68,11 @@ const directoryFull = async (req, res) => {
   }
 };
 
-export default { addContact, listContact, searchContact, deleteContact, directoryFull };
+export default {
+  addContact,
+  listContact,
+  searchContact,
+  deleteContact,
+  updateContact,
+  directoryFull,
+};

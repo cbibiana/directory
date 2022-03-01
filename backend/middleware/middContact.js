@@ -22,4 +22,5 @@ const capacityDirectory = async (req, res, next)=>{
     next();
 }
 
+
 export default { validData, existingContact, capacityDirectory };
